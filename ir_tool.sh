@@ -4,20 +4,27 @@
 # -- Setup parameters
 # ------------------------------------------------------------
 
-env_file='env_info.txt'
-null_file='null_info.txt'
-shell_file='shell_info.txt'
-system_file='system_info.txt'
-history_file='history_info.txt'
-crontab_file='crontab_info.txt'
-process_file='process_info.txt'
-network_file='network_service.txt'
-network_config='network_config.txt'
-install_file='install_file_info.txt'
-timeline_file='timeline.txt'
-malware_file='MALWARE_info.txt'
-http_file='HTTP_SERVER_info.txt'
-abnormal_file='NOUSER_NOGROUP_info.txt'
+if [ -z $1 ]; then
+	echo "usage: $0 <dir_name>"
+	exit;
+fi
+base_dir=$1
+mkdir -p $base_dir
+env_file="$base_dir/env_info.txt"
+null_file="$base_dir/null_info.txt"
+shell_file="$base_dir/shell_info.txt"
+system_file="$base_dir/system_info.txt"
+history_file="$base_dir/history_info.txt"
+crontab_file="$base_dir/crontab_info.txt"
+process_file="$base_dir/process_info.txt"
+network_file="$base_dir/network_service.txt"
+network_config="$base_dir/network_config.txt"
+install_file_info="$base_dir/install_file.txt"
+timeline_file="$base_dir/timeline.txt"
+malware_file="$base_dir/MALWARE_info.txt"
+http_file="$base_dir/HTTP_SERVER_info.txt"
+abnormal_file="$base_dir/NOUSER_NOGROUP_info.txt"
+
 # ------------------------------------------------------------
 # -- Start the procedure
 # ------------------------------------------------------------
@@ -249,13 +256,13 @@ find / -type f -printf "%P,%A+,%T+,%C+,%u,%g,%M,%s\n" >> $timeline_file
 # Package files
 
 # /var/log/
-tar -zc -f CCU_VAR_LOG.tar.gz /var/log/ 2>/dev/null
+tar -zc -f $base_dir/CCU_VAR_LOG.tar.gz /var/log/ 2>/dev/null
 
 # /root/
-tar -zc -f CCU_ROOT_HOME.tar.gz /root/ 2>/dev/null
+tar -zc -f $base_dir/CCU_ROOT_HOME.tar.gz /root/ 2>/dev/null
 
 # /home/
 for name in $(ls /home)
 do
-    tar -zc -f CCU_HOME_$name.tar.gz /home/$name 2>/dev/null
+    tar -zc -f $base_dir/CCU_HOME_$name.tar.gz /home/$name 2>/dev/null
 done
