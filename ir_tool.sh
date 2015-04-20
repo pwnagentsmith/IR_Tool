@@ -256,13 +256,13 @@ find / -type f -printf "%P,%A+,%T+,%C+,%u,%g,%M,%s\n" >> $timeline_file
 # Package files
 
 # /var/log/
-tar -zc -f $base_dir/CCU_VAR_LOG.tar.gz /var/log/ 2>/dev/null
+tar -zc -f $base_dir/VAR_LOG.tar.gz /var/log/ 2>/dev/null
 
 # /root/
-tar -zc -f $base_dir/CCU_ROOT_HOME.tar.gz /root/ 2>/dev/null
+tar -zc -f $base_dir/ROOT_HOME.tar.gz /root/ 2>/dev/null
 
 # /home/
 for name in $(ls /home)
 do
-    tar -zc -f $base_dir/CCU_HOME_$name.tar.gz /home/$name 2>/dev/null
+    tar -zc -f $base_dir/HOME_$name.tar.gz /home/$name 2>/dev/null
 done
